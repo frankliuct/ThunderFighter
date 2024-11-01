@@ -3,25 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Drawing;
+
 
 namespace ThunderFighter
 {
     class Background : GameObject
     {
-        private Image img;
 
-        public Background(int x, int y, int width, int height, int speed, int life, Direction dir) : base(x, y, width, height, speed, life, dir)
-        {
-        }
+        private static Image img = Image.FromFile("Resources/background.png");
+        public Background(int x, int y, int speed) : base(x, y, img.Width,img.Height,speed,0,Direction.Down)
+            { }
+
 
         public override void Draw(Graphics g)
         {
-            throw new NotImplementedException();
+            this.MoveToBorder();
+            g.DrawImage(img,this.X,this.Y);
         }
 
         public override void MoveToBorder()
         {
-            throw new NotImplementedException();
+            this.Y += this.Speed;
+            if(this.Y == 0)
+            {
+                this.Y = -850;
+            }
         }
     }
 }
